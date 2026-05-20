@@ -1,19 +1,30 @@
 import React from 'react';
-import { CheckCircle, Circle, Edit3, Trash2 } from 'lucide-react';
+import { CheckCircle, Circle, PlusCircle, Edit3, Trash2 } from 'lucide-react';
 
 const TaskItem = ({ task, onToggleStatus, onDelete, onEdit }) => {
   const isDone = task.status === 'done';
+  const isNew = task.status === 'new';
+
+  const getStatusIcon = () => {
+    if (isDone) return <CheckCircle size={22} fill="currentColor" fillOpacity={0.1} />;
+    if (isNew) return <PlusCircle size={22} className="text-blue-400" />;
+    return <Circle size={22} />;
+  };
+
+  const getStatusColor = () => {
+    if (isDone) return 'text-emerald-500 hover:text-emerald-600';
+    if (isNew) return 'text-blue-400 hover:text-blue-500';
+    return 'text-slate-300 hover:text-slate-400';
+  };
 
   return (
     <tr className="hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0">
       <td className="py-4 pl-4 w-12">
         <button
           onClick={() => onToggleStatus(task)}
-          className={`flex items-center justify-center transition-all ${
-            isDone ? 'text-emerald-500 hover:text-emerald-600' : 'text-slate-300 hover:text-slate-400'
-          }`}
+          className={`flex items-center justify-center transition-all ${getStatusColor()}`}
         >
-          {isDone ? <CheckCircle size={22} fill="currentColor" fillOpacity={0.1} /> : <Circle size={22} />}
+          {getStatusIcon()}
         </button>
       </td>
       <td className="py-4 pr-4">

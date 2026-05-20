@@ -49,7 +49,11 @@ function App() {
   };
 
   const handleToggleStatus = async (task) => {
-    const newStatus = task.status === 'pending' ? 'done' : 'pending';
+    let newStatus;
+    if (task.status === 'new') newStatus = 'pending';
+    else if (task.status === 'pending') newStatus = 'done';
+    else newStatus = 'pending'; // Toggle back to pending from done
+    
     const previousTasks = [...tasks];
     setTasks(tasks.map((t) => (t.id === task.id ? { ...t, status: newStatus } : t)));
 
@@ -174,15 +178,12 @@ function App() {
                     )}
                   </tbody>
                 </table>
-              </div>
             </div>
           </div>
-
-          </div>
         </div>
-      </main>
-    </div>
-  );
+      </div>
+    </main>
+  </div>
+);
 }
-
 export default App;
