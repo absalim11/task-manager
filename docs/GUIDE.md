@@ -33,18 +33,27 @@ curl -X POST http://localhost:8000/api/tasks \
 ```
 
 ### Database Inspection
-To inspect the MySQL database directly:
-```bash
-docker exec -it todo-mysql mysql -u todo_user -ptodo_password todo_db
-# Once inside:
-SELECT * FROM tasks;
-```
+To inspect the MySQL database directly, you have two options:
+
+1. **Web Interface (Adminer):**
+   - URL: [http://localhost:8080](http://localhost:8080)
+   - Server: `mysql`
+   - User: `todo_user`
+   - Password: `todo_password`
+   - Database: `todo_db`
+
+2. **CLI:**
+   ```bash
+   docker exec -it todo-mysql mysql -u todo_user -ptodo_password todo_db
+   ```
 
 ## 3. Troubleshooting
 
-### "Service unavailable" or "Connection Refused"
-- **Wait for DB:** MySQL can take 10-20 seconds to fully initialize the first time. If Laravel fails to migrate, wait a few seconds and run the migrate command again.
-- **Port Conflict:** Ensure ports `3000`, `8000`, and `3306` are not being used by other applications on your host machine.
+### Port Conflicts
+- **MySQL:** This project uses port **3308** on the host to avoid common conflicts with local MySQL installations.
+- **Backend:** Port **8000**.
+- **Frontend:** Port **3000**.
+- **Adminer:** Port **8080**.
 
 ### CORS Errors
 If you see CORS errors in the browser console:

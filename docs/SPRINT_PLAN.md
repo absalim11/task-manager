@@ -81,29 +81,30 @@ Deliver a polished, dockerized full-stack todo app using Laravel 12 (Public API)
 
 ---
 
-### Session 6: UX Integration & Polish (2 jam)
+### Session 6: UI Refinement & Icons (2 jam)
 **Tasks:**
-- [ ] Integrate **Toast notifications** for Success/Error feedback
-- [ ] Implement **Optimistic Updates** or Auto-refresh list
-- [ ] Add **Empty State** message
-- [ ] Final UI styling refinement
+- [ ] Implement **Modern Sleek Design** (2-column layout)
+- [ ] Integrate **Lucide Icons**
+- [ ] Implement **'New' status** logic and icons
+- [ ] Finalize centered root layout in `index.css`
 
 **Deliverable:**
-- Smooth UX with clear feedback
-- Handles 422 validation errors gracefully (displays field errors)
+- Professional dashboard UI
+- Clear visual distinction for task status
 
 ---
 
-### Session 7: Final Testing & Submission (1 jam)
+### Session 7: Final Infrastructure & Submission (1 jam)
 **Tasks:**
-- [ ] Test full flow on a clean `docker-compose down -v`
-- [ ] Write `README.md` (Setup instructions + Features list)
-- [ ] **Record screen record demo** (mp4/gif)
+- [ ] Add **Adminer** service for DB management
+- [ ] Fix Docker port conflicts (MySQL 3308)
+- [ ] Final documentation update (README, Milestones, Postman)
+- [ ] Record screen demo
 - [ ] Push to GitHub & Submit
 
 **Deliverable:**
-- GitHub repo with clean code
-- Video demo included
+- Complete, easy-to-review repository
+- High-quality video demo included
 
 ---
 

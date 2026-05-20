@@ -11,8 +11,10 @@ Full-stack todo application dengan Laravel 12 backend dan React frontend, docker
 |-------|------------|
 | Backend | Laravel 12 (PHP 8.3) |
 | Database | MySQL 8.0 |
-| Frontend | React 18 (Vite) |
-| Styling | Basecoat CSS |
+| Frontend | React 19 (Vite) |
+| Styling | Basecoat CSS + Tailwind CSS 4.0 |
+| Icons | Lucide React |
+| Tooling | Adminer |
 | Container | Docker + Docker Compose |
 
 ---
@@ -21,6 +23,7 @@ Full-stack todo application dengan Laravel 12 backend dan React frontend, docker
 - **Auth:** Public API (Tanpa Authentication) untuk efisiensi waktu sesuai requirement test teknis.
 - **Data Handling:** Menggunakan Laravel API Resources untuk output JSON yang konsisten.
 - **Validation:** Server-side validation untuk integritas data.
+- **Layout:** Centered root layout dengan dashboard 2 kolom.
 
 ---
 
@@ -41,7 +44,7 @@ POST /api/tasks
 {
   "title": "string (required)",
   "description": "string (optional)",
-  "status": "pending|done (default: pending)"
+  "status": "new|pending|done (default: new)"
 }
 ```
 
@@ -52,7 +55,7 @@ POST /api/tasks
     "id": 1,
     "title": "string",
     "description": "string",
-    "status": "pending",
+    "status": "new",
     "created_at": "2026-05-20T...",
     "updated_at": "2026-05-20T..."
   }
@@ -68,7 +71,7 @@ CREATE TABLE tasks (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NULL,
-    status ENUM('pending', 'done') DEFAULT 'pending',
+    status ENUM('new', 'pending', 'done') DEFAULT 'new',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -78,18 +81,22 @@ CREATE TABLE tasks (
 
 ## Frontend Features
 
-### Halaman Utama
-- [ ] List semua task dengan card layout
-- [ ] Checkbox toggle status (pending ↔ done)
-- [ ] Tombol Edit (inline modal/form)
-- [ ] Tombol Delete dengan konfirmasi (Simple Confirm)
+### Dashboard Layout
+- **Left Column:** Sticky Task Creation Form.
+- **Right Column:** Task Preview Table with actions.
+
+### Task Interactions
+- [ ] List semua task dengan table layout
+- [ ] Toggle status icon (new ➔ pending ➔ done ➔ pending)
+- [ ] Tombol Edit (load to form)
+- [ ] Tombol Delete dengan konfirmasi (window.confirm)
 - [ ] Form Add Task (title, description)
 
 ### UX Requirements
 - [ ] Auto-update list setelah CRUD (Optimistic UI update)
 - [ ] Error handling dengan Toast notifications (React Hot Toast)
 - [ ] Loading states pada tombol submit/delete
-- [ ] Empty state illustration/message jika tidak ada task
+- [ ] Modern sleek design dengan Lucide Icons dan centered root
 
 ---
 
