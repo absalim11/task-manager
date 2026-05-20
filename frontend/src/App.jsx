@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
-import { Layout, List, CheckCircle2, Circle } from 'lucide-react';
+import { Layout, List, CheckCircle2, Circle, BookOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { taskService } from './services/api';
 import TaskForm from './components/TaskForm';
 import TaskItem from './components/TaskItem';
@@ -95,12 +96,31 @@ function App() {
       
       {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50 py-4 px-8 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-2">
-          <div className="bg-indigo-600 p-2 rounded-xl text-white">
-            <Layout size={24} />
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            <div className="bg-indigo-600 p-2 rounded-xl text-white">
+              <Layout size={24} />
+            </div>
+            <h1 className="text-xl font-bold tracking-tight text-slate-800">TaskFlow</h1>
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-800">TaskFlow</h1>
+
+          <nav className="hidden md:flex items-center gap-1">
+            <Link 
+              to="/" 
+              className="px-4 py-2 text-sm font-semibold text-indigo-600 bg-indigo-50 rounded-lg transition-all"
+            >
+              Dashboard
+            </Link>
+            <Link 
+              to="/docs" 
+              className="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-all flex items-center gap-2"
+            >
+              <BookOpen size={16} />
+              Docs
+            </Link>
+          </nav>
         </div>
+        
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-full text-sm font-medium">
             <CheckCircle2 size={16} />

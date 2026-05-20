@@ -94,17 +94,17 @@ Deliver a polished, dockerized full-stack todo app using Laravel 12 (Public API)
 
 ---
 
-### Session 7: Final Infrastructure & Submission (1 jam)
+### Session 8: Web-based Documentation Portal (2 jam)
 **Tasks:**
-- [ ] Add **Adminer** service for DB management
-- [ ] Fix Docker port conflicts (MySQL 3308)
-- [ ] Final documentation update (README, Milestones, Postman)
-- [ ] Record screen demo
-- [ ] Push to GitHub & Submit
+- [x] Create modern `Docs` component in React
+- [x] Integrate `react-router-dom` for navigation
+- [x] Port content from `dokumentasi.html` and markdown files
+- [x] Add floating button/link in Dashboard to access Docs
+- [x] Finalize Milestone for Documentation Portal
 
 **Deliverable:**
-- Complete, easy-to-review repository
-- High-quality video demo included
+- Interactive, searchable web documentation at `/docs`
+- Unified frontend for both App and Documentation
 
 ---
 

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOCO 3 - Dokumentasi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Transisi halus saat ganti tema */
+        body { transition: background-color 0.3s ease, color 0.3s ease; }
+        .nav-item { transition: all 0.2s ease; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 font-sans flex flex-col min-h-screen">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30 transition-colors">
+        <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
+            <div class="flex items-center">
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="p-2 mr-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white lg:hidden focus:outline-none">
+                    <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    <svg id="icon-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+                <!-- Logo -->
+                <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                    <span class="font-bold text-xl text-gray-900 dark:text-white tracking-tight">SOCO 3<span class="text-blue-600 dark:text-blue-400"> Docs</span></span>
+                </div>
+            </div>
+
+            <!-- Search Bar (Visual only for template) -->
+            <div class="flex-1 max-w-lg px-4 hidden md:block">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                    <input id="search-input" class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors" placeholder="Cari dokumentasi..." type="search">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hidden sm:block text-sm font-medium">Versi 1.0</a>
+                
+                <!-- Dark Mode Toggle Button -->
+                <button id="theme-toggle" class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none rounded-lg bg-gray-100 dark:bg-gray-700 transition-colors">
+                    <svg id="icon-moon" class="hidden w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    <svg id="icon-sun" class="block w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto relative">
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden lg:hidden"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="fixed inset-y-0 left-0 pt-16 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-20 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:pt-0 overflow-y-auto">
+            <div id="nav-container" class="py-6 px-4 pb-20">
+                <!-- Nav items will be injected here by JS -->
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto focus:outline-none bg-white dark:bg-gray-900 transition-colors">
+            <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl">
+                <!-- Content will be injected here by JS -->
+                <div id="main-content-area"></div>
+                
+                <!-- Page Footer -->
+                <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 flex justify-between">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Terakhir diperbarui: Hari ini</p>
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                        Kembali ke Atas
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Dokumentasi
+        const docData = {
+            'pendahuluan': {
+                title: "Pendahuluan: SOCO 3",
+                content: "Selamat datang di Buku Panduan Penggunaan Portal SOCO 3 - Strong Government Relationship. Platform ini merupakan hasil kerjasama strategis antara Parkland dan Adidas. Dokumentasi ini disusun untuk memandu pengguna dari berbagai tingkat akses (Publik, Member Terdaftar, dan Administrator) dalam mengoperasikan sistem secara optimal.",
+                images: [
+                    {
+                        url: "/assets/soco3/docs-screenshots/pendahuluan.png",
+                        caption: "Tampilan Beranda SOCO 3 - Menampilkan Navigasi Utama, Core Team, Slider Banner, dan Panel Government Update."
+                    }
+                ],
+                subsections: [
+                    { subtitle: "Visi & Misi Platform", text: "\"The premier executive platform for international government relations, facilitating strategic partnerships, policy compliance, and high-level corporate diplomacy for the world's leading organizations.\"\n\nSistem ini dirancang bukan hanya sebagai portal informasi, tetapi sebagai alat bantu strategis untuk memastikan kepatuhan terhadap regulasi (policy compliance) dan menjembatani komunikasi tingkat tinggi antar pemangku kepentingan." },
+                    { subtitle: "Struktur Halaman Beranda Utama", text: "Dari tampilan antarmuka di atas, halaman beranda didesain secara komprehensif dengan memuat berbagai elemen penting:\n\n1. Header & Navigasi: Navigasi dinamis menuju modul-modul publik.\n2. Breaking News: Teks berjalan (running text) untuk menyoroti pengumuman mendesak.\n3. Panel Eksekutif: Menampilkan profil 'Core Team SOCO 3' secara transparan.\n4. Konten Utama: Sorotan berita (Update Informasi) dan Slider interaktif.\n5. Government Update: Akses cepat ke arsip kebijakan terbaru." }
+                ]
+            },
+            'publik-update-informasi': {
+                title: "1. Update Informasi (Publik)",
+                content: "Halaman ini merupakan portal berita publik. Berfungsi sebagai pusat distribusi informasi umum terkait aktivitas, berita terkini, inovasi, dan press release di dalam ekosistem SOCO 3.",
+                image: "/assets/soco3/docs-screenshots/berita-listing.png",
+                subsections: [
+                    { subtitle: "Bagi Pengunjung (User)", text: "Pengunjung dapat membaca artikel secara penuh, melihat tanggal publikasi, dan membagikan informasi terkait kolaborasi strategis antara Parkland dan Adidas." },
+                    { subtitle: "Catatan Sistem", text: "Seluruh konten pada halaman ini dikelola secara dinamis melalui panel Admin (CMS) pada modul 'Update Informasi' menggunakan editor teks kaya (Rich Text Editor)." }
+                ]
+            },
+            'publik-soco-member': {
+                title: "2. SOCO 3 Member (Publik)",
+                content: "Halaman direktori publik yang menampilkan daftar organisasi, instansi, atau perwakilan VIP yang terintegrasi secara resmi dalam keanggotaan SOCO 3.",
+                image: "/assets/soco3/docs-screenshots/mitra-directory.png",
+                subsections: [
+                    { subtitle: "Transparansi Jaringan", text: "Menyediakan informasi publik mengenai entitas mana saja yang berafiliasi. Berguna untuk memverifikasi keabsahan mitra strategis." },
+                    { subtitle: "Privasi Data", text: "Hanya informasi dasar (seperti nama instansi dan representasi publik) yang ditampilkan di sini. Data sensitif member disembunyikan dan hanya dapat diakses di portal tertutup." }
+                ]
+            },
+            'publik-gallery': {
+                title: "3. Gallery (Publik)",
+                content: "Pusat dokumentasi visual (foto dan video) dari berbagai kegiatan, pertemuan tingkat tinggi (summit), dan acara diplomasi yang diselenggarakan oleh SOCO 3.",
+                image: "/assets/soco3/docs-screenshots/gallery-listing.png",
+                subsections: [
+                    { subtitle: "Pengelompokan Album", text: "Galeri diatur berdasarkan 'Album' kegiatan (misal: 'Rapat Tahunan 2026') untuk memudahkan pengunjung menelusuri rekam jejak visual organisasi." }
+                ]
+            },
+            'publik-hubungi-kami': {
+                title: "4. Hubungi Kami",
+                content: "Pusat bantuan (Helpdesk) publik. Menyediakan saluran komunikasi satu arah dari pengunjung website ke tim pengelola operasional SOCO 3.",
+                image: "/assets/soco3/docs-screenshots/hubungi-kami.png",
+                subsections: [
+                    { subtitle: "Formulir Kontak", text: "Pengunjung dapat mengisi Nama, Email, Subjek, dan Pesan. Sistem akan secara otomatis meneruskan pesan ini ke inboks Admin (Pesan Masuk)." },
+                    { subtitle: "Informasi Kantor", text: "Menampilkan alamat fisik kantor representatif (Kudus, Jawa Tengah) dan alamat email resmi institusi." }
+                ]
+            },
+            'publik-update-government': {
+                title: "5. Update Government (Publik)",
+                content: "Halaman inti (core feature) yang menampilkan daftar ringkasan (summary) kebijakan pemerintah terbaru yang memengaruhi sektor industri terkait.",
+                image: "/assets/soco3/docs-screenshots/berita-gov.png",
+                subsections: [
+                    { subtitle: "Keterbatasan Akses Publik", text: "Publik hanya dapat melihat judul, ringkasan awal, dan tanggal rilis kebijakan. Untuk melihat dokumen utuh atau analisis legalitas mendalam, pengguna diwajibkan login sebagai Member." }
+                ]
+            },
+            'member-dashboard': {
+                title: "1. Dashboard (Member)",
+                content: "Halaman beranda privat yang langsung terbuka ketika Member berhasil melakukan Login (otentikasi). Didesain untuk memberikan ringkasan (overview) cepat mengenai aktivitas akun.",
+                image: "/assets/soco3/docs-screenshots/portal-dashboard.png",
+                subsections: [
+                    { subtitle: "Fitur Tersedia", text: "Menampilkan notifikasi dokumen kebijakan baru, ringkasan agenda terdekat, dan statistik singkat aktivitas member di dalam platform." }
+                ]
+            },
+            'member-profile': {
+                title: "2. Profile Saya",
+                content: "Modul bagi member untuk mengelola identitas digital mereka di dalam ekosistem SOCO 3.",
+                image: "/assets/soco3/docs-screenshots/portal-profile.png",
+                subsections: [
+                    { subtitle: "Pengelolaan Data Diri", text: "Member dapat memperbarui Nama, Jabatan, Instansi, Foto Profil, serta mengelola keamanan akun (Ubah Password)." }
+                ]
+            },
+            'member-agenda': {
+                title: "3. Agenda Saya",
+                content: "Sistem kalender personal yang dikurasi khusus untuk member tersebut.",
+                image: "/assets/soco3/docs-screenshots/portal-agenda.png",
+                subsections: [
+                    { subtitle: "Fungsi Penjadwalan", text: "Menampilkan jadwal rapat strategis, undangan acara diplomasi, atau deadline kepatuhan regulasi yang relevan dengan instansi member." }
+                ]
+            },
+            'member-file': {
+                title: "4. File Saya",
+                content: "Brankas digital personal (Private Vault) untuk setiap member.",
+                image: "/assets/soco3/docs-screenshots/portal-files.png",
+                subsections: [
+                    { subtitle: "Distribusi Dokumen Aman", text: "Di sinilah admin dapat mengirimkan dokumen sensitif, MoU, atau laporan kebijakan khusus (Policy Compliance) langsung ke member tertentu secara aman. Member dapat mengunduh file-file ini ke perangkat lokal." }
+                ]
+            },
+            'admin-dashboard': {
+                title: "1. Dashboard (Admin)",
+                content: "Pusat kendali eksekutif (Command Center) bagi Administrator Sistem.",
+                image: "/assets/soco3/docs-screenshots/admin-dashboard.png",
+                subsections: [
+                    { subtitle: "Fungsi Monitoring", text: "Menyediakan metrik tingkat tinggi (High-level metrics) seperti Total Pengunjung, Jumlah Member Aktif, Total Dokumen Kebijakan, dan Grafik aktivitas harian. Sangat berguna bagi penanggung jawab sistem untuk pelaporan." }
+                ]
+            },
+            'admin-update-government': {
+                title: "2. Update Government (Admin)",
+                content: "Modul paling krusial dalam sistem. Tempat admin menginput dan mengelola database kebijakan pemerintah.",
+                image: "/assets/soco3/docs-screenshots/admin-berita-gov.png",
+                subsections: [
+                    { subtitle: "Alur Kerja (Workflow)", text: "Admin melakukan entry data: Judul Kebijakan, Kategori, Deskripsi/Analisis, dan mengunggah (upload) File PDF regulasi asli. Admin juga dapat menentukan apakah kebijakan ini bersifat Publik atau Private (hanya untuk Member)." }
+                ]
+            },
+            'admin-core-team': {
+                title: "3. Core Team",
+                content: "Manajemen data personel inti (Lead Strategis, Head Office, dsb) yang tampil di beranda utama publik.",
+                image: "/assets/soco3/docs-screenshots/admin-core-team.png",
+                subsections: [
+                    { subtitle: "Pengelolaan Profil", text: "Mendukung aksi Tambah, Edit, dan Hapus (CRUD) nama, jabatan, afiliasi perusahaan, dan foto representasi tim inti." }
+                ]
+            },
+            'admin-partner': {
+                title: "4. Partner / Mitra",
+                content: "Sistem Manajemen Hubungan Mitra Kerja (Partner Relationship Management).",
+                image: "/assets/soco3/docs-screenshots/admin-partner.png",
+                subsections: [
+                    { subtitle: "Deskripsi", text: "Modul induk untuk mengelola organisasi/perusahaan yang menjalin kemitraan strategis dengan SOCO 3." }
+                ]
+            },
+            'admin-partner-daftar': {
+                title: "4.1 Semua Daftar Partner",
+                content: "Tabel induk yang memuat semua entitas mitra.",
+                image: "/assets/soco3/docs-screenshots/admin-partner.png",
+                subsections: [
+                    { subtitle: "Fungsi Modul", text: "Admin mengelola identitas partner (Nama Perusahaan, Website, Logo). Data ini yang nantinya ditampilkan pada panel 'Our Partners' di beranda." }
+                ]
+            },
+            'admin-partner-file': {
+                title: "4.2 File Partner",
+                content: "Manajemen berkas (File Management) yang diikat secara spesifik ke entitas partner tertentu.",
+                image: "/assets/soco3/docs-screenshots/admin-partner-file.png",
+                subsections: [
+                    { subtitle: "Fungsi Modul", text: "Sebagai arsip digital sentral untuk menyimpan kontrak, MoU, Surat Keputusan (SK), atau dokumen legal kerja sama antara SOCO 3 dan instansi mitra." }
+                ]
+            },
+            'admin-pesan-masuk': {
+                title: "5. Pesan Masuk",
+                content: "Inboks sentral yang menampung seluruh formulir kontak yang dikirim oleh pengunjung melalui halaman publik 'Hubungi Kami'.",
+                image: "/assets/soco3/docs-screenshots/admin-pesan-masuk.png",
+                subsections: [
+                    { subtitle: "Tindak Lanjut (Follow-up)", text: "Penanggung jawab sistem (Helpdesk) dapat membaca pesan, melihat detail pengirim, dan menentukan prioritas balasan." }
+                ]
+            },
+            'admin-kategori': {
+                title: "6. Kategori",
+                content: "Modul taksonomi sistem untuk mengelompokkan konten secara terstruktur.",
+                image: "/assets/soco3/docs-screenshots/admin-kategori.png",
+                subsections: [
+                    { subtitle: "Penggunaan", text: "Admin membuat 'Kategori' utama (Contoh: 'Berita Nasional', 'Kebijakan Ekspor', 'CSR') yang nantinya dipilih saat membuat artikel baru." }
+                ]
+            },
+            'admin-tag': {
+                title: "7. Tag",
+                content: "Modul taksonomi sekunder untuk melabeli konten dengan kata kunci spesifik.",
+                image: "/assets/soco3/docs-screenshots/admin-tag.png",
+                subsections: [
+                    { subtitle: "Penggunaan", text: "Mempermudah mesin pencari internal (Search Insights) di website untuk mengindeks artikel berdasarkan kata kunci (Contoh Tag: #Pajak2026, #AdidasGlobal)." }
+                ]
+            },
+            'admin-gallery': {
+                title: "8. Gallery (Admin)",
+                content: "Modul manajemen Aset Visual platform.",
+                image: "/assets/soco3/docs-screenshots/admin-gallery.png",
+                subsections: [
+                    { subtitle: "Deskripsi", text: "Induk modul untuk mengelola pameran foto/video publik di front-end." }
+                ]
+            },
+            'admin-gallery-album': {
+                title: "8.1 Album",
+                content: "Pengelolaan folder virtual atau 'Album' acara.",
+                image: "/assets/soco3/docs-screenshots/admin-gallery.png",
+                subsections: [
+                    { subtitle: "Fungsi Modul", text: "Admin mendefinisikan nama acara, tanggal, dan thumbnail (cover) album sebelum foto-foto detail diunggah." }
+                ]
+            },
+            'admin-gallery-isi': {
+                title: "8.2 Isi Gallery",
+                content: "Proses unguah media (Media Uploading) ke dalam album yang telah dibuat.",
+                image: "/assets/soco3/docs-screenshots/admin-gallery-isi.png",
+                subsections: [
+                    { subtitle: "Fungsi Modul", text: "Admin dapat mengunggah banyak foto sekaligus (batch upload), menambahkan caption pada setiap foto, dan mengaitkannya ke album tertentu." }
+                ]
+            },
+            'admin-banner': {
+                title: "9. Banner",
+                content: "Manajemen visual dinamis (Slider) pada beranda atas.",
+                image: "/assets/soco3/docs-screenshots/admin-banner.png",
+                subsections: [
+                    { subtitle: "Optimalisasi Tampilan", text: "Admin mengunggah gambar resolusi tinggi (Banner), mengatur urutan tayang, menambahkan teks promosi (Contoh: 'ADIDAS HYPE'), dan menyematkan link (tautan) pada banner tersebut." }
+                ]
+            },
+            'admin-iklan': {
+                title: "10. Iklan",
+                content: "Modul untuk mengelola ruang promosi sekunder atau pengumuman internal sistem.",
+                image: "/assets/soco3/docs-screenshots/admin-iklan.png",
+                subsections: [
+                    { subtitle: "Penggunaan", text: "Biasanya digunakan untuk banner berukuran lebih kecil yang disisipkan di sela-sela konten atau di sidebar, berfungsi sebagai informasi komersial atau pengumuman acara." }
+                ]
+            },
+            'admin-identitas': {
+                title: "11. Identitas Website",
+                content: "Pusat pengaturan global sistem (Global System Settings). Sangat krusial dan umumnya hanya diakses oleh Super Admin.",
+                image: "/assets/soco3/docs-screenshots/admin-identitas.png",
+                subsections: [
+                    { subtitle: "Konfigurasi Inti", text: "Di sini admin mengatur Nama Website, Slogan, Logo Perusahaan, Favicon (ikon browser), Kontak (Alamat, Email), Link Media Sosial, serta Meta Deskripsi untuk optimasi SEO (Search Engine Optimization) di Google." }
+                ]
+            },
+            'admin-user-manajemen': {
+                title: "12. User Manajemen",
+                content: "Sistem Keamanan dan Hak Akses Pengguna (Role-Based Access Control).",
+                image: "/assets/soco3/docs-screenshots/admin-user-manajemen.png",
+                subsections: [
+                    { subtitle: "Pengelolaan Akun", text: "Penanggung jawab sistem dapat membuat akun baru, mereset password, memblokir (suspend) user yang melanggar ketentuan, dan mengatur level akses (Misal: Admin, Editor, atau Member biasa)." }
+                ]
+            },
+            'penutup': {
+                title: "Penutup",
+                content: "Terima kasih telah menggunakan sistem SOCO 3 - Strong Government Relationship. Dokumentasi ini berfungsi sebagai panduan mutlak (Source of Truth) untuk standar operasional sistem.",
+                image: "/assets/soco3/docs-screenshots/homepage-hero.png",
+                subsections: [
+                    { subtitle: "Dukungan Teknis", text: "Apabila penanggung jawab sistem menemukan *bug* (kesalahan program) atau membutuhkan penambahan fitur baru di masa mendatang, harap merujuk pada dokumen kontrak pengembangan sistem versi terkini." },
+                    { subtitle: "Versi Dokumen", text: "V1.0 - Mei 2026. Rilis Awal Dokumentasi Sistem." }
+                ]
+            }
+        };
+
+        // Kategori Navigasi
+        const navCategories = [
+            {
+                title: "General",
+                items: [ { id: 'pendahuluan', label: 'Pendahuluan' } ]
+            },
+            {
+                title: "Halaman Publik",
+                items: [
+                    { id: 'publik-update-informasi', label: '1. Update Informasi' },
+                    { id: 'publik-soco-member', label: '2. SOCO 3 Member' },
+                    { id: 'publik-gallery', label: '3. Gallery' },
+                    { id: 'publik-hubungi-kami', label: '4. Hubungi Kami' },
+                    { id: 'publik-update-government', label: '5. Update Government' },
+                ]
+            },
+            {
+                title: "Halaman Portal Member",
+                items: [
+                    { id: 'member-dashboard', label: '1. Dashboard' },
+                    { id: 'member-profile', label: '2. Profile Saya' },
+                    { id: 'member-agenda', label: '3. Agenda Saya' },
+                    { id: 'member-file', label: '4. File Saya' },
+                ]
+            },
+            {
+                title: "Halaman Admin",
+                items: [
+                    { id: 'admin-dashboard', label: '1. Dashboard' },
+                    { id: 'admin-update-government', label: '2. Update Government' },
+                    { id: 'admin-core-team', label: '3. Core Team' },
+                    { id: 'admin-partner', label: '4. Partner / Mitra' },
+                    { id: 'admin-partner-daftar', label: '4.1 Semua Daftar', isSub: true },
+                    { id: 'admin-partner-file', label: '4.2 File Partner', isSub: true },
+                    { id: 'admin-pesan-masuk', label: '5. Pesan Masuk' },
+                    { id: 'admin-kategori', label: '6. Kategori' },
+                    { id: 'admin-tag', label: '7. Tag' },
+                    { id: 'admin-gallery', label: '8. Gallery' },
+                    { id: 'admin-gallery-album', label: '8.1 Album', isSub: true },
+                    { id: 'admin-gallery-isi', label: '8.2 Isi Gallery', isSub: true },
+                    { id: 'admin-banner', label: '9. Banner' },
+                    { id: 'admin-iklan', label: '10. Iklan' },
+                    { id: 'admin-identitas', label: '11. Identitas Website' },
+                    { id: 'admin-user-manajemen', label: '12. User Manajemen' },
+                ]
+            },
+            {
+                title: "Lainnya",
+                items: [ { id: 'penutup', label: 'Penutup' } ]
+            }
+        ];
+
+        // State Global
+        let activeSection = 'pendahuluan';
+
+        // Render Navigasi
+        function renderNavigation(categories = navCategories) {
+            const container = document.getElementById('nav-container');
+            if (!categories.length) {
+                container.innerHTML = `<div class="p-4 text-center text-gray-500 dark:text-gray-400">No results found.</div>`;
+                return;
+            }
+            let html = '';
+            categories.forEach(category => {
+                html += `<div class="mb-6">
+                            <h3 class="px-3 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">${category.title}</h3>
+                            <ul class="space-y-1">`;
+
+                category.items.forEach(item => {
+                    const isActive = activeSection === item.id;
+                    const paddingClass = item.isSub ? 'pl-8 pr-3 text-[13px]' : 'px-3 text-sm';
+                    const activeClass = isActive
+                        ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 font-semibold'
+                        : (item.isSub ? 'text-gray-500 dark:text-gray-400 font-normal hover:bg-gray-100 dark:hover:bg-gray-700' : 'text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white');
+
+                    const chevron = (isActive && !item.isSub) ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500 dark:text-blue-400 flex-shrink-0"><path d="m9 18 6-6-6-6"/></svg>` : '';
+
+                    html += `<li>
+                                <button onclick="navigate('${item.id}')" class="nav-item w-full flex items-center justify-between py-2 rounded-md text-left ${paddingClass} ${activeClass}">
+                                    ${item.label}
+                                    ${chevron}
+                                </button>
+                             </li>`;
+                });
+                html += `</ul></div>`;
+            });
+
+            container.innerHTML = html;
+        }
+        // Render Konten Utama
+        function renderContent() {
+            const container = document.getElementById('main-content-area');
+            const data = docData[activeSection];
+            if (!data) return;
+
+            let html = `
+                <div class="mb-8">
+                    <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">${data.title}</h1>
+            `;
+
+            // Gambar Tunggal
+            if (data.image) {
+                html += `
+                    <div class="my-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm">
+                        <img src="${data.image}" alt="Screenshot ${data.title}" class="w-full h-auto object-cover" />
+                        <div class="bg-gray-50 dark:bg-gray-800 px-4 py-2 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 text-center">
+                            Tampilan UI - ${data.title}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Banyak Gambar
+            if (data.images) {
+                data.images.forEach(img => {
+                    html += `
+                        <div class="my-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm">
+                            <img src="${img.url}" alt="${img.caption}" class="w-full h-auto object-cover border-b border-gray-200 dark:border-gray-700" />
+                            <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 font-medium text-center">
+                                ${img.caption}
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            html += `<p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">${data.content}</p></div>`;
+
+            // Sub-seksi
+            if (data.subsections) {
+                html += `<div class="space-y-8 mt-8">`;
+                data.subsections.forEach(sub => {
+                    html += `
+                        <div class="border-t border-gray-100 dark:border-gray-800 pt-6">
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">${sub.subtitle}</h2>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-line">${sub.text}</p>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Fungsi Navigasi
+        function navigate(id) {
+            activeSection = id;
+            renderNavigation();
+            renderContent();
+            closeSidebar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Manajemen Sidebar Mobile
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconX = document.getElementById('icon-x');
+        let isSidebarOpen = false;
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            if (isSidebarOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                iconMenu.classList.add('hidden');
+                iconMenu.classList.remove('block');
+                iconX.classList.remove('hidden');
+                iconX.classList.add('block');
+            } else {
+                closeSidebar();
+            }
+        }
+
+        function closeSidebar() {
+            isSidebarOpen = false;
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            iconMenu.classList.remove('hidden');
+            iconMenu.classList.add('block');
+            iconX.classList.add('hidden');
+            iconX.classList.remove('block');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        // Manajemen Dark Mode
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon');
+        const iconSun = document.getElementById('icon-sun');
+        const htmlElement = document.documentElement;
+
+        // Cek preferensi user sebelumnya dari localStorage
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            iconSun.classList.remove('block');
+            iconSun.classList.add('hidden');
+            iconMoon.classList.remove('hidden');
+            iconMoon.classList.add('block');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle icon
+            iconSun.classList.toggle('hidden');
+            iconSun.classList.toggle('block');
+            iconMoon.classList.toggle('hidden');
+            iconMoon.classList.toggle('block');
+
+            // Jika sedang light mode
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                // Jika sedang dark mode
+                htmlElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', function() {
+            const term = this.value.trim().toLowerCase();
+            if (!term) {
+                renderNavigation();
+            } else {
+                const filtered = navCategories.map(cat => {
+                    const items = cat.items.filter(item => {
+                        const data = docData[item.id];
+                        const titleMatch = data.title.toLowerCase().includes(term);
+                        const labelMatch = item.label.toLowerCase().includes(term);
+                        return titleMatch || labelMatch;
+                    });
+                    return { ...cat, items };
+                }).filter(cat => cat.items.length > 0);
+                renderNavigation(filtered);
+            }
+        });
+
+        // Inisialisasi Pertama Kali
+        renderNavigation();
+        renderContent();
+    </script>
+</body>
+</html>
