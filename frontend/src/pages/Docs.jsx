@@ -61,24 +61,28 @@ const docData = {
     },
     'user-guide': {
         title: "Panduan Pengguna",
-        content: "Pelajari cara menggunakan TaskFlow untuk meningkatkan produktivitas harian Anda.",
+        content: "Pelajari cara menggunakan TaskFlow untuk meningkatkan produktivitas harian Anda dengan antarmuka yang intuitif.",
         icon: <User size={20} />,
         subsections: [
             { 
-              subtitle: "1. Tampilan Dashboard", 
-              text: "Dashboard TaskFlow menggunakan tata letak 2-kolom yang modern:\n• Sisi Kiri: Form untuk membuat tugas baru.\n• Sisi Kanan: Daftar tugas yang teratur dengan indikator status visual." 
+              subtitle: "1. Tampilan Dashboard Utama", 
+              text: "Dashboard TaskFlow dirancang dengan layout yang bersih untuk memaksimalkan fokus pengguna. Sisi kiri difokuskan pada input data, sementara sisi kanan menyajikan daftar tugas secara komprehensif.",
+              image: "/screenshots/main-app.png"
             },
             { 
-              subtitle: "2. Menambah Tugas", 
-              text: "Gunakan panel 'Create Task' di sebelah kiri. Masukkan judul tugas (wajib) dan deskripsi (opsional). Klik 'Create Task' dan tugas akan langsung muncul di daftar dengan status 'New'." 
+              subtitle: "2. Membuat Tugas Baru", 
+              text: "Gunakan form 'Create Task' di sisi kiri. Isi judul tugas dan deskripsi jika diperlukan. Sistem akan otomatis memberikan status 'New' pada tugas yang baru saja dibuat.",
+              image: "/screenshots/create-form.png"
             },
             { 
-              subtitle: "3. Mengelola Status", 
-              text: "Klik pada ikon status di sebelah kiri setiap tugas untuk mengubah statusnya:\n• New (Plus Biru) ➔ Pending (Lingkaran Abu)\n• Pending ➔ Done (Centang Hijau)\n• Done ➔ Pending (Kembali ke proses)" 
+              subtitle: "3. Memperbarui Tugas", 
+              text: "Anda dapat mengubah detail tugas kapan saja. Klik ikon pensil di baris tugas untuk memuat kembali data ke dalam form, lalu simpan perubahan Anda.",
+              image: "/screenshots/update-form.png"
             },
             { 
-              subtitle: "4. Edit & Hapus", 
-              text: "Gunakan tombol aksi di sebelah kanan setiap baris tugas:\n• Ikon Pensil: Memuat tugas kembali ke form untuk diedit.\n• Ikon Sampah: Menghapus tugas secara permanen (membutuhkan konfirmasi)." 
+              subtitle: "4. Aksi & Navigasi", 
+              text: "Setiap tugas memiliki tombol aksi cepat. Gunakan ikon sampah untuk menghapus tugas. Pastikan Anda melihat indikator status di pojok kanan atas untuk ringkasan tugas harian Anda.",
+              image: "/screenshots/action-button.png"
             }
         ]
     }
@@ -113,58 +117,46 @@ const navCategories = [
 const UIPreview = ({ type }) => {
   if (type === 'dashboard') {
     return (
-      <div className="my-8 border border-slate-200 rounded-2xl overflow-hidden shadow-xl bg-slate-100 p-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="h-10 bg-slate-50 border-b border-slate-200 flex items-center px-4 gap-2">
-            <div className="w-3 h-3 rounded-full bg-rose-400" />
-            <div className="w-3 h-3 rounded-full bg-amber-400" />
-            <div className="w-3 h-3 rounded-full bg-emerald-400" />
-            <div className="ml-4 h-5 w-48 bg-slate-200 rounded-full" />
-          </div>
-          <div className="p-4 grid grid-cols-12 gap-4">
-            <div className="col-span-4 space-y-3">
-              <div className="h-32 bg-indigo-50 rounded-xl border-2 border-dashed border-indigo-200 flex items-center justify-center text-indigo-400 text-xs font-bold uppercase">Form Area</div>
-              <div className="h-10 bg-indigo-600 rounded-xl" />
-            </div>
-            <div className="col-span-8 space-y-2">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="h-12 bg-white border border-slate-100 rounded-lg flex items-center px-3 gap-3">
-                  <div className="w-6 h-6 rounded-full bg-slate-100" />
-                  <div className="flex-1 h-3 bg-slate-100 rounded-full" />
-                  <div className="w-16 h-3 bg-slate-50 rounded-full" />
-                </div>
-              ))}
-            </div>
+      <div className="my-8 space-y-8">
+        <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-xl">
+          <img src="/screenshots/main-app.png" alt="Main Dashboard" className="w-full h-auto" />
+          <div className="bg-slate-50 px-4 py-3 border-t border-slate-200 text-center text-xs text-slate-500 font-medium">
+            Tampilan Utama Dashboard TaskFlow
           </div>
         </div>
-        <p className="mt-3 text-center text-xs text-slate-400 font-medium italic">Preview: Tata letak Dashboard 2-Kolom</p>
       </div>
     );
   }
   
   if (type === 'status') {
     return (
-      <div className="my-8 grid grid-cols-3 gap-4">
-        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
-          <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center mb-4">
-            <PlusCircle size={28} />
+      <div className="my-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+          <div className="bg-blue-50/50 p-4 flex justify-center">
+            <img src="/screenshots/task-status-new.png" alt="Status New" className="h-12 w-auto" />
           </div>
-          <span className="font-bold text-slate-900 mb-1">New</span>
-          <span className="text-xs text-slate-400">Inisiasi Tugas</span>
+          <div className="p-4 text-center">
+            <span className="block font-bold text-slate-900 mb-1">New</span>
+            <span className="text-xs text-slate-400">Tugas yang baru dibuat</span>
+          </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
-          <div className="w-12 h-12 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center mb-4">
-            <Circle size={28} />
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+          <div className="bg-slate-50/50 p-4 flex justify-center">
+            <img src="/screenshots/task-status-pending.png" alt="Status Pending" className="h-12 w-auto" />
           </div>
-          <span className="font-bold text-slate-900 mb-1">Pending</span>
-          <span className="text-xs text-slate-400">Dalam Pengerjaan</span>
+          <div className="p-4 text-center">
+            <span className="block font-bold text-slate-900 mb-1">Pending</span>
+            <span className="text-xs text-slate-400">Sedang dikerjakan</span>
+          </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
-          <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4">
-            <CheckCircle2 size={28} />
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+          <div className="bg-emerald-50/50 p-4 flex justify-center">
+            <img src="/screenshots/task-status-done.png" alt="Status Done" className="h-12 w-auto" />
           </div>
-          <span className="font-bold text-slate-900 mb-1">Done</span>
-          <span className="text-xs text-slate-400">Selesai</span>
+          <div className="p-4 text-center">
+            <span className="block font-bold text-slate-900 mb-1">Done</span>
+            <span className="text-xs text-slate-400">Tugas selesai</span>
+          </div>
         </div>
       </div>
     );
@@ -291,7 +283,13 @@ const Docs = () => {
                     <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
                     {sub.subtitle}
                   </h2>
-                  <p className="text-slate-600 leading-relaxed whitespace-pre-line">{sub.text}</p>
+                  <p className="text-slate-600 leading-relaxed whitespace-pre-line mb-6">{sub.text}</p>
+                  
+                  {sub.image && (
+                    <div className="mt-4 border border-slate-200 rounded-xl overflow-hidden shadow-md">
+                      <img src={sub.image} alt={sub.subtitle} className="w-full h-auto" />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
