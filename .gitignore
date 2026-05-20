@@ -1,0 +1,29 @@
+# Docker
+mysql_data/
+
+# Backend
+backend/vendor/
+backend/.env
+backend/storage/*.key
+backend/public/storage
+backend/public/hot
+backend/public/build
+backend/.phpunit.result.cache
+backend/database/database.sqlite
+backend/database/database.sqlite-journal
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
