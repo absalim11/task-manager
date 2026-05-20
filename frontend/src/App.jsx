@@ -77,7 +77,7 @@ function App() {
   const doneCount = tasks.filter(t => t.status === 'done').length;
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col">
       <Toaster 
         position="top-right" 
         toastOptions={{
@@ -109,8 +109,9 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-8 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <main className="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Form */}
           <div className="lg:col-span-4">
@@ -178,6 +179,7 @@ function App() {
             </div>
           </div>
 
+          </div>
         </div>
       </main>
     </div>
