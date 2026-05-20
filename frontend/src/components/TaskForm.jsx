@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Save, X } from 'lucide-react';
 
-const TaskForm = ({ onSubmit, editingTask, onCancel, loading }) => {
+const TaskForm = ({ onSubmit, editingTask, onCancel, loading, serverErrors }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [localErrors, setLocalErrors] = useState({});
 
   useEffect(() => {
     if (editingTask) {
@@ -13,14 +14,26 @@ const TaskForm = ({ onSubmit, editingTask, onCancel, loading }) => {
       setTitle('');
       setDescription('');
     }
+    setLocalErrors({});
   }, [editingTask]);
+
+  useEffect(() => {
+    if (serverErrors && Object.keys(serverErrors).length > 0) {
+      setLocalErrors(serverErrors);
+      // Auto-reset errors after 3 seconds
+      const timer = setTimeout(() => {
+        setLocalErrors({});
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [serverErrors]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ title, description });
-    if (!editingTask) {
-      setTitle('');
-      setDescription('');
+    if (!editingTask && !Object.keys(serverErrors || {}).length) {
+      // Don't clear if there might be validation errors coming back
+      // App.jsx handles success clear via state changes if needed
     }
   };
 
@@ -40,23 +53,36 @@ const TaskForm = ({ onSubmit, editingTask, onCancel, loading }) => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            required
             placeholder="e.g. Design Landing Page"
-            className="w-full bg-slate-50 border-0 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 py-3 text-slate-700 placeholder:text-slate-300 transition-all"
+            className={`w-full bg-slate-50 border-2 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 py-3 text-slate-700 placeholder:text-slate-300 transition-all ${
+              localErrors.title ? 'border-red-400 bg-red-50' : 'border-transparent'
+            }`}
             disabled={loading}
           />
+          {localErrors.title && (
+            <span className="text-[10px] text-red-500 font-bold ml-1 mt-1 block uppercase tracking-tighter">
+              {localErrors.title[0]}
+            </span>
+          )}
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 ml-1">Description (Optional)</label>
+          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 ml-1">Description</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Add more details about this task..."
+            placeholder="Detailed explanation of the task..."
             rows="4"
-            className="w-full bg-slate-50 border-0 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 py-3 text-slate-700 placeholder:text-slate-300 transition-all resize-none"
+            className={`w-full bg-slate-50 border-2 focus:ring-2 focus:ring-indigo-500/20 rounded-xl px-4 py-3 text-slate-700 placeholder:text-slate-300 transition-all resize-none ${
+              localErrors.description ? 'border-red-400 bg-red-50' : 'border-transparent'
+            }`}
             disabled={loading}
           />
+          {localErrors.description && (
+            <span className="text-[10px] text-red-500 font-bold ml-1 mt-1 block uppercase tracking-tighter">
+              {localErrors.description[0]}
+            </span>
+          )}
         </div>
       </div>
 
@@ -68,7 +94,7 @@ const TaskForm = ({ onSubmit, editingTask, onCancel, loading }) => {
             ? 'bg-blue-500 hover:bg-blue-600 shadow-blue-200' 
             : 'bg-indigo-500 hover:bg-indigo-600 shadow-indigo-200'
           } ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
-          disabled={loading || !title.trim()}
+          disabled={loading}
         >
           {loading ? (
             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

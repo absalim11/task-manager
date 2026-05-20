@@ -8,6 +8,7 @@ This document tracks the development phases and key achievements of the To-Do Ap
 - [x] **Laravel 12 Setup:** Initialized backend with a focus on API-only development.
 - [x] **Database Design:** Created `tasks` table with optimized schema for performance and clarity.
 - [x] **Public API Implementation:** Developed CRUD endpoints using Laravel best practices (Controllers, Requests, Resources).
+- [x] **Data Integrity:** Implemented strict server-side validation for mandatory `title` and `description` fields.
 
 ## Phase 2: Frontend & UX (Completed)
 - [x] **React 18 Initialization:** Set up Vite-based React application with modern tooling.
@@ -32,6 +33,7 @@ This document tracks the development phases and key achievements of the To-Do Ap
 - [x] **DB Management:** Added **Adminer** service for easy database inspection.
 - [x] **Bug Fixes:** Resolved Docker port conflicts (MySQL Port 3308) and PHP version mismatch (Locked to 8.3).
 - [x] **API Robustness:** Implemented `$task->refresh()` to ensure accurate JSON responses for defaults.
+- [x] **Validation Feedback:** Implemented red border highlights with 3s auto-reset for mandatory fields.
 
 ## Phase 5: Documentation Portal (Completed)
 - [x] **Web-based Docs:** Created a dedicated interactive documentation portal at `/docs`.

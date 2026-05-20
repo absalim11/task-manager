@@ -11,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [errorFields, setErrorFields] = useState({});
 
   const fetchTasks = async () => {
     setLoading(true);
@@ -30,6 +31,7 @@ function App() {
 
   const handleCreateOrUpdate = async (data) => {
     setFormLoading(true);
+    setErrorFields({}); // Clear previous errors
     try {
       if (editingTask) {
         const response = await taskService.update(editingTask.id, data);
@@ -42,8 +44,13 @@ function App() {
         toast.success('Task created successfully');
       }
     } catch (error) {
-      const message = error.response?.data?.message || 'Failed to save task';
-      toast.error(message);
+      if (error.response?.status === 422) {
+        setErrorFields(error.response.data.errors);
+        toast.error('Validation failed. Please check the required fields.');
+      } else {
+        const message = error.response?.data?.message || 'Failed to save task';
+        toast.error(message);
+      }
     } finally {
       setFormLoading(false);
     }
@@ -143,6 +150,7 @@ function App() {
               editingTask={editingTask}
               onCancel={() => setEditingTask(null)}
               loading={formLoading}
+              serverErrors={errorFields}
             />
           </div>
 
