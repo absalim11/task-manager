@@ -38,7 +38,7 @@ services:
     networks:
       - todo-network
     ports:
-      - "3306:3306"
+      - "3308:3306"
 
   # Frontend React Service
   react:
