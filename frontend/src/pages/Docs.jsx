@@ -66,8 +66,12 @@ const docData = {
         subsections: [
             { 
               subtitle: "1. Tampilan Dashboard Utama", 
-              text: "Dashboard TaskFlow dirancang dengan layout yang bersih untuk memaksimalkan fokus pengguna. Sisi kiri difokuskan pada input data, sementara sisi kanan menyajikan daftar tugas secara komprehensif.",
-              image: "/screenshots/main-app.png"
+              text: "Dashboard TaskFlow dirancang dengan layout yang bersih untuk memaksimalkan fokus pengguna. Antarmuka ini terbagi menjadi tiga komponen utama yang bekerja secara harmonis:\n\n• **Task Creation Form**: Terletak di sisi kiri untuk input cepat tugas baru.\n• **Task Preview Table**: Daftar utama di sisi kanan untuk memantau semua tugas.\n• **Stats Counter**: Ringkasan status tugas di pojok kanan atas.",
+              images: [
+                { url: "/screenshots/create-form.png", caption: "Panel Input: Form pembuatan tugas baru yang bersih dan minimalis." },
+                { url: "/screenshots/task-list-table.png", caption: "Daftar Tugas: Tabel interaktif untuk memantau detail dan status tugas." },
+                { url: "/screenshots/stats-counter.png", caption: "Indikator Statistik: Ringkasan jumlah tugas total dan yang sudah selesai." }
+              ]
             },
             { 
               subtitle: "2. Membuat Tugas Baru", 
@@ -288,6 +292,19 @@ const Docs = () => {
                   {sub.image && (
                     <div className="mt-4 border border-slate-200 rounded-xl overflow-hidden shadow-md">
                       <img src={sub.image} alt={sub.subtitle} className="w-full h-auto" />
+                    </div>
+                  )}
+
+                  {sub.images && (
+                    <div className="grid grid-cols-1 gap-6 mt-6">
+                      {sub.images.map((img, i) => (
+                        <div key={i} className="border border-slate-200 rounded-xl overflow-hidden shadow-md">
+                          <img src={img.url} alt={img.caption} className="w-full h-auto" />
+                          <div className="bg-slate-50 px-4 py-2 border-t border-slate-200 text-center text-xs text-slate-500 font-medium italic">
+                            {img.caption}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
