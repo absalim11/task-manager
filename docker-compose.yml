@@ -58,6 +58,16 @@ services:
     networks:
       - todo-network
 
+  # Database Management Service
+  adminer:
+    image: adminer
+    container_name: todo-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - todo-network
+
 networks:
   todo-network:
     driver: bridge
