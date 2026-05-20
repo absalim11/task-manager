@@ -24,6 +24,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request): TaskResource
     {
         $task = Task::create($request->validated());
+        $task->refresh(); // Load DB defaults
         return new TaskResource($task);
     }
 
