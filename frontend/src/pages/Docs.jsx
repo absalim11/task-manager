@@ -58,6 +58,29 @@ const docData = {
             { subtitle: "Akses", text: "Akses Adminer di port 8080. Gunakan server 'mysql', user 'todo_user', dan database 'todo_db'." },
             { subtitle: "Keamanan", text: "Adminer hanya tersedia di lingkungan pengembangan dan tidak disarankan untuk produksi tanpa proteksi tambahan." }
         ]
+    },
+    'user-guide': {
+        title: "Panduan Pengguna",
+        content: "Pelajari cara menggunakan TaskFlow untuk meningkatkan produktivitas harian Anda.",
+        icon: <User size={20} />,
+        subsections: [
+            { 
+              subtitle: "1. Tampilan Dashboard", 
+              text: "Dashboard TaskFlow menggunakan tata letak 2-kolom yang modern:\n• Sisi Kiri: Form untuk membuat tugas baru.\n• Sisi Kanan: Daftar tugas yang teratur dengan indikator status visual." 
+            },
+            { 
+              subtitle: "2. Menambah Tugas", 
+              text: "Gunakan panel 'Create Task' di sebelah kiri. Masukkan judul tugas (wajib) dan deskripsi (opsional). Klik 'Create Task' dan tugas akan langsung muncul di daftar dengan status 'New'." 
+            },
+            { 
+              subtitle: "3. Mengelola Status", 
+              text: "Klik pada ikon status di sebelah kiri setiap tugas untuk mengubah statusnya:\n• New (Plus Biru) ➔ Pending (Lingkaran Abu)\n• Pending ➔ Done (Centang Hijau)\n• Done ➔ Pending (Kembali ke proses)" 
+            },
+            { 
+              subtitle: "4. Edit & Hapus", 
+              text: "Gunakan tombol aksi di sebelah kanan setiap baris tugas:\n• Ikon Pensil: Memuat tugas kembali ke form untuk diedit.\n• Ikon Sampah: Menghapus tugas secara permanen (membutuhkan konfirmasi)." 
+            }
+        ]
     }
 };
 
@@ -65,6 +88,12 @@ const navCategories = [
     {
         title: "Umum",
         items: [ { id: 'pendahuluan', label: 'Pendahuluan' } ]
+    },
+    {
+        title: "Penggunaan",
+        items: [
+            { id: 'user-guide', label: 'Panduan Fitur' },
+        ]
     },
     {
         title: "Fitur & Logika",
@@ -80,6 +109,68 @@ const navCategories = [
         ]
     }
 ];
+
+const UIPreview = ({ type }) => {
+  if (type === 'dashboard') {
+    return (
+      <div className="my-8 border border-slate-200 rounded-2xl overflow-hidden shadow-xl bg-slate-100 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="h-10 bg-slate-50 border-b border-slate-200 flex items-center px-4 gap-2">
+            <div className="w-3 h-3 rounded-full bg-rose-400" />
+            <div className="w-3 h-3 rounded-full bg-amber-400" />
+            <div className="w-3 h-3 rounded-full bg-emerald-400" />
+            <div className="ml-4 h-5 w-48 bg-slate-200 rounded-full" />
+          </div>
+          <div className="p-4 grid grid-cols-12 gap-4">
+            <div className="col-span-4 space-y-3">
+              <div className="h-32 bg-indigo-50 rounded-xl border-2 border-dashed border-indigo-200 flex items-center justify-center text-indigo-400 text-xs font-bold uppercase">Form Area</div>
+              <div className="h-10 bg-indigo-600 rounded-xl" />
+            </div>
+            <div className="col-span-8 space-y-2">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="h-12 bg-white border border-slate-100 rounded-lg flex items-center px-3 gap-3">
+                  <div className="w-6 h-6 rounded-full bg-slate-100" />
+                  <div className="flex-1 h-3 bg-slate-100 rounded-full" />
+                  <div className="w-16 h-3 bg-slate-50 rounded-full" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <p className="mt-3 text-center text-xs text-slate-400 font-medium italic">Preview: Tata letak Dashboard 2-Kolom</p>
+      </div>
+    );
+  }
+  
+  if (type === 'status') {
+    return (
+      <div className="my-8 grid grid-cols-3 gap-4">
+        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
+          <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center mb-4">
+            <PlusCircle size={28} />
+          </div>
+          <span className="font-bold text-slate-900 mb-1">New</span>
+          <span className="text-xs text-slate-400">Inisiasi Tugas</span>
+        </div>
+        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
+          <div className="w-12 h-12 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center mb-4">
+            <Circle size={28} />
+          </div>
+          <span className="font-bold text-slate-900 mb-1">Pending</span>
+          <span className="text-xs text-slate-400">Dalam Pengerjaan</span>
+        </div>
+        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
+          <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4">
+            <CheckCircle2 size={28} />
+          </div>
+          <span className="font-bold text-slate-900 mb-1">Done</span>
+          <span className="text-xs text-slate-400">Selesai</span>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
 
 const Docs = () => {
   const [activeSection, setActiveSection] = useState('pendahuluan');
@@ -189,6 +280,9 @@ const Docs = () => {
             
             <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-6">{currentDoc.title}</h1>
             <p className="text-lg text-slate-600 leading-relaxed mb-10">{currentDoc.content}</p>
+
+            {activeSection === 'user-guide' && <UIPreview type="dashboard" />}
+            {activeSection === 'status-lifecycle' && <UIPreview type="status" />}
 
             <div className="space-y-12">
               {currentDoc.subsections.map((sub, idx) => (

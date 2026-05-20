@@ -35,6 +35,9 @@ This document tracks the development phases and key achievements of the To-Do Ap
 
 ## Phase 5: Documentation Portal (Completed)
 - [x] **Web-based Docs:** Created a dedicated interactive documentation portal at `/docs`.
+- [x] **User Feature Guide:** Detailed manual covering Dashboard, Task Creation, and Actions.
+- [x] **Visual Previews:** Integrated stylized UI mockups for better user orientation.
+- [x] **Status Lifecycle Documentation:** Clear visual representation of New, Pending, and Done states.
 - [x] **Interactive Content:** Ported architectural details and task lifecycle into the web view.
 - [x] **Routing:** Integrated `react-router-dom` for seamless navigation between App and Docs.
 - [x] **Searchable UI:** Implemented real-time search for documentation articles.
