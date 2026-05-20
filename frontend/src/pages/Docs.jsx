@@ -86,7 +86,8 @@ const docData = {
             { 
               subtitle: "4. Aksi & Navigasi", 
               text: "Setiap tugas memiliki tombol aksi cepat. Gunakan ikon sampah untuk menghapus tugas. Pastikan Anda melihat indikator status di pojok kanan atas untuk ringkasan tugas harian Anda.",
-              image: "/screenshots/action-button.png"
+              image: "/screenshots/action-button.png",
+              imageClassName: "max-w-xs mx-auto"
             }
         ]
     }
@@ -290,7 +291,7 @@ const Docs = () => {
                   <p className="text-slate-600 leading-relaxed whitespace-pre-line mb-6">{sub.text}</p>
                   
                   {sub.image && (
-                    <div className="mt-4 border border-slate-200 rounded-xl overflow-hidden shadow-md">
+                    <div className={`mt-4 border border-slate-200 rounded-xl overflow-hidden shadow-md ${sub.imageClassName || ''}`}>
                       <img src={sub.image} alt={sub.subtitle} className="w-full h-auto" />
                     </div>
                   )}
